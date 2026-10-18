@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BRATVA TOP UP</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#080808;color:#fff}
+header{padding:18px 16px;background:#0d0d0d;border-bottom:2px solid #e60012;text-align:center}
+.logo{font-size:30px;font-weight:900;color:#fff}.logo span{color:#e60012}
+.tag{color:#aaa;font-size:13px;margin-top:4px}
+.hero{padding:35px 18px;text-align:center;background:linear-gradient(135deg,#180000,#080808)}
+.hero h1{font-size:38px;margin:0 0 10px}.hero h1 span{color:#e60012}
+.hero p{color:#ddd}
+.container{max-width:650px;margin:20px auto;padding:0 16px}
+.card{background:#111;border:1px solid #292929;border-radius:14px;padding:20px;margin-bottom:16px}
+h2{margin-top:0;color:#ff2535}
+label{display:block;margin:12px 0 7px;font-weight:bold}
+input,select{width:100%;padding:14px;border-radius:9px;border:1px solid #444;background:#080808;color:#fff;font-size:16px}
+.packages{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.package{padding:15px;border:1px solid #333;border-radius:10px;background:#0b0b0b;cursor:pointer;text-align:center}
+.package:hover,.package.active{border-color:#e60012;background:#210609}
+.price{color:#ff2535;font-weight:bold;margin-top:5px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay button{padding:14px;border-radius:9px;border:1px solid #444;background:#171717;color:white;font-weight:bold}
+.pay button.active{border-color:#e60012;background:#30070b}
+.mainbtn{width:100%;margin-top:18px;padding:16px;border:0;border-radius:10px;background:#e60012;color:#fff;font-size:17px;font-weight:900}
+.note{font-size:12px;color:#aaa;line-height:1.5}
+#result{display:none;margin-top:15px;padding:15px;border-radius:10px;background:#09220e;border:1px solid #1d9d42;color:#baf5c8}
+footer{text-align:center;padding:30px;color:#777;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">BRATVA <span>TOP UP</span></div>
+  <div class="tag">FAST • SIMPLE • FIABLE</div>
+</header>
+
+<section class="hero">
+  <h1>FREE FIRE <span>TOP UP</span></h1>
+  <p>Achte UID ou, chwazi Diamonds ou, epi prepare kòmand ou.</p>
+</section>
+
+<main class="container">
+  <div class="card">
+    <h2>1. Antre UID / Player ID</h2>
+    <input id="uid" type="text" inputmode="numeric" placeholder="Egzanp: 1234567890">
+  </div>
+
+  <div class="card">
+    <h2>2. Chwazi Diamonds</h2>
+    <div class="packages">
+      <div class="package" data-pack="70" data-price="70">💎 70<br><div class="price">HTG 70*</div></div>
+      <div class="package" data-pack="140" data-price="140">💎 140<br><div class="price">HTG 140*</div></div>
+      <div class="package" data-pack="355" data-price="350">💎 355<br><div class="price">HTG 350*</div></div>
+      <div class="package" data-pack="720" data-price="700">💎 720<br><div class="price">HTG 700*</div></div>
+      <div class="package" data-pack="1450" data-price="1400">💎 1,450<br><div class="price">HTG 1,400*</div></div>
+      <div class="package" data-pack="2180" data-price="2000">💎 2,180<br><div class="price">HTG 2,000*</div></div>
+    </div>
+    <p class="note">*Pri sa yo se sèlman egzanp pou konsepsyon an. Mete pri reyèl yo anvan ou pibliye sit la.</p>
+  </div>
+
+  <div class="card">
+    <h2>3. Chwazi metòd peman</h2>
+    <div class="pay">
+      <button type="button" data-pay="MonCash">📱 MonCash</button>
+      <button type="button" data-pay="NatCash">📱 NatCash</button>
+    </div>
+    <p class="note">Demo sèlman: pa antre PIN, modpas oswa kòd sekrè sou paj sa a.</p>
+    <button class="mainbtn" id="order">PREPARE KÒMAND LAN</button>
+    <div id="result"></div>
+  </div>
+</main>
+
+<footer>© 2026 BRATVA TOP UP — Demo storefront</footer>
+
+<script>
+let selectedPack=null, selectedPay=null;
+document.querySelectorAll('.package').forEach(el=>{
+  el.onclick=()=>{
+    document.querySelectorAll('.package').forEach(x=>x.classList.remove('active'));
+    el.classList.add('active');
+    selectedPack={diamonds:el.dataset.pack,price:el.dataset.price};
+  };
+});
+document.querySelectorAll('.pay button').forEach(el=>{
+  el.onclick=()=>{
+    document.querySelectorAll('.pay button').forEach(x=>x.classList.remove('active'));
+    el.classList.add('active');
+    selectedPay=el.dataset.pay;
+  };
+});
+document.getElementById('order').onclick=()=>{
+  const uid=document.getElementById('uid').value.trim();
+  const result=document.getElementById('result');
+  if(!uid || !selectedPack || !selectedPay){
+    result.style.display='block';
+    result.style.background='#2a1700';
+    result.style.borderColor='#a66a00';
+    result.style.color='#ffd98a';
+    result.textContent='Tanpri ranpli UID, chwazi Diamonds ak metòd peman.';
+    return;
+  }
+  result.style.display='block';
+  result.style.background='#09220e';
+  result.style.borderColor='#1d9d42';
+  result.style.color='#baf5c8';
+  result.innerHTML=`Kòmand prepare ✅<br>UID: <b>${uid}</b><br>Diamonds: <b>${selectedPack.diamonds}</b><br>Peman: <b>${selectedPay}</b><br>Pri demo: <b>HTG ${selectedPack.price}</b><br><br><span style="color:#fff">Pwochen etap la se konekte yon sèvis peman ofisyèl.</span>`;
+};
+</script>
+</body>
+</html>
